@@ -1,6 +1,6 @@
-class CreateQuestions < ActiveRecord::Migration[5.2]
+class CreateCards < ActiveRecord::Migration[5.2]
   def change
-    create_table :questions do |t|
+    create_table :cards do |t|
       t.text :question
       t.text :answer
       t.integer :dollar_value
