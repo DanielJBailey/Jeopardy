@@ -1,5 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import {Link} from 'react-router-dom';
 import {
   addCategory,
   deleteCategory,
@@ -8,6 +9,7 @@ import {
 } from '../../reducers/categories';    
 import NewCategoryForm from './NewCategoryForm';
 import styled from 'styled-components';
+import Category from './Category';
 
 
 class Admin extends React.Component {
@@ -21,11 +23,13 @@ class Admin extends React.Component {
     return (
       <>
         
-        <CategoryContainer>
-          <NewCategoryForm />
+        <CategoryContainer style={categories.length > 0 ? {display: "grid",gridTemplateColumns: "1fr 1fr", gridGap: "10px"}: null}>
           {categories.map(category => 
-            <h1 key={category.id}>{category.name}</h1>
+            <Link to ={`/admin/categories/${category.id}`}>
+              <Category key={category.id} {...category}/>
+            </Link>
           )}
+          {categories.length < 6 ?  <NewCategoryForm /> : null}
         </CategoryContainer>
       </>
     )
@@ -34,12 +38,11 @@ class Admin extends React.Component {
 
 const CategoryContainer = styled.div`
   width: 100%;
-  height: 100%;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
+  padding: 1em;
+
+  a {
+    text-decoration: none;
+  }
 `;
 
 const mapStateToProps = state => {

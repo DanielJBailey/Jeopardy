@@ -16,25 +16,30 @@ class NewCategoryForm extends React.Component {
   }
 
   handleSubmit = e => {
-    const { dispatch } = this.props
-    e.preventDefault()
-    dispatch(addCategory({ ...this.state }));
-    alert(`${this.state.name} added!`, null, 'success');
-    this.setState({
-        name: ""
-    })
+      const { dispatch } = this.props
+      e.preventDefault()
+      dispatch(addCategory({ ...this.state }));
+      alert(
+        'Category Added!',
+        `${this.state.name} has been added.`,
+        'success'
+      )
+      this.setState({
+          name: ""
+      })
   }
 
   render () {
     let { name } = this.state
     return (
       <Form onSubmit={this.handleSubmit}>
-        <input
+        <input  
           placeholder='Category Name:'
           name='name'
           value={name}
           onChange={this.handleChange}
           required
+          autoFocus
         />
       </Form>
     )
@@ -42,18 +47,19 @@ class NewCategoryForm extends React.Component {
 }
 
 const Form = styled.form`
-  width: 300px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 50px 1em;
-  background-color: black;
+  padding: 1em;
 
   input {
     width: 100%;
     padding: 10px 20px;
-    margin: 1em;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    font-weight: bold;
   }
 `;
 
