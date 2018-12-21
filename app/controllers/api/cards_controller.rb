@@ -1,9 +1,9 @@
-class Api::CardController < ApplicationController
+class Api::CardsController < ApplicationController
   before_action :set_category
   before_action :set_card, only: [:show, :update, :destroy]
 
   def index
-    render json: @category.card.all
+    render json: @category.cards.all
   end
 
   def show

@@ -1,28 +1,28 @@
 require 'test_helper'
 
-class Api::CardControllerTest < ActionDispatch::IntegrationTest
+class Api::CategoriesControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get api_card_index_url
+    get api_categories_index_url
     assert_response :success
   end
 
   test "should get show" do
-    get api_card_show_url
+    get api_categories_show_url
     assert_response :success
   end
 
   test "should get create" do
-    get api_card_create_url
+    get api_categories_create_url
     assert_response :success
   end
 
   test "should get update" do
-    get api_card_update_url
+    get api_categories_update_url
     assert_response :success
   end
 
   test "should get destroy" do
-    get api_card_destroy_url
+    get api_categories_destroy_url
     assert_response :success
   end
 
