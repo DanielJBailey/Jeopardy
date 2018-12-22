@@ -22,9 +22,9 @@ export const addCategory = (category) => {
     }
 }
 
-export const updateCategory = (category) => {
+export const updateCategory = (id, name) => {
     return (dispatch) => {
-        axios.put(`/api/categories/${category.id}`, { category })
+        axios.put(`/api/categories/${id}`, { name })
         .then(res => dispatch({ type: UPDATE_CAT, category: res.data}))
     }
 }

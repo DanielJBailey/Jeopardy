@@ -1,10 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import {
-  // addCategory,
-  // deleteCategory,
   // updateCategory,
-  getCategories, deleteCategory
+  getCategories, deleteCategory, updateCategory
 } from '../../reducers/categories'
 import NewCategoryForm from './NewCategoryForm'
 import styled from 'styled-components'
@@ -36,6 +34,16 @@ class Admin extends React.Component {
     })
   }
 
+  handleEdit = (id, name) => {
+    const {dispatch} = this.props;
+    dispatch(updateCategory(id, name))
+    alert(
+      'Updated!',
+      `${name} has been updated`,
+      'success'
+    )
+  }
+
   handleDelete = id => {
     const {dispatch} = this.props;
     alert({
@@ -63,7 +71,7 @@ class Admin extends React.Component {
     let { editing, deleting } = this.state
     return (
       <AdminContainer>
-        <AdminNavBar categoryButtons toggleDelete={this.toggleDelete} />
+        <AdminNavBar categoryButtons toggleDelete={this.toggleDelete} toggleEdit={this.toggleEditing} editing={editing} deleting={deleting  }/>
         <CategoryContainer>
           {categories.map(category => (
             <Category
@@ -72,6 +80,7 @@ class Admin extends React.Component {
               editing={editing}
               deleting={deleting}
               remove={this.handleDelete}
+              edit={this.handleEdit}
             />
           ))}
           {categories.length < 6 ? <NewCategoryForm /> : null}

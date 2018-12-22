@@ -2,15 +2,15 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
-const AdminNavBar = ({ categoryButtons, toggleDelete }) => {
+const AdminNavBar = ({ categoryButtons, toggleDelete, toggleEdit, editing, deleting}) => {
   return (
     <Nav>
       <Link to={`/admin`}>Dashboard</Link>
 
       {categoryButtons ? (
         <div>
-          <Button onClick={toggleDelete}>Delete Categories</Button>
-          <Button>Edit Categories</Button>
+          <Button onClick={toggleDelete} style={deleting ? {backgroundColor: "#45aaf2", color: "white"}: null}>Delete Categories</Button>
+          <Button onClick={toggleEdit} style={editing ? {backgroundColor: "#45aaf2", color: "white"}: null}>Edit Categories</Button>
         </div>
       ) : null}
     </Nav>
