@@ -7,7 +7,7 @@ const Category = ({id, name, deleting, editing, remove, edit}) => (
     <Container>
         {editing ? 
         <>
-            <EditCategory id={id} name={name} edit={edit}/>
+            <EditCategory id={id} name={name} edit={edit} />
         </>
         :
         <>

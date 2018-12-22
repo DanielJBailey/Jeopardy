@@ -37,6 +37,7 @@ class Admin extends React.Component {
   handleEdit = (id, name) => {
     const {dispatch} = this.props;
     dispatch(updateCategory(id, name))
+    this.toggleEditing();
     alert(
       'Updated!',
       `${name} has been updated`,

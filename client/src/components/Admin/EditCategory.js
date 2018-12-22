@@ -20,10 +20,11 @@ class EditCategory extends React.Component {
   }
 
   handleSubmit = e => {
-    let {edit, id } = this.props;
+    let {edit, id, editing } = this.props;
     let { name}  = this.state;
     e.preventDefault()
     edit(id, name);
+    
   }
 
   render () {
