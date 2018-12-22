@@ -14,9 +14,9 @@ export const getCards = (category_id) => {
     }
 }
 
-export const addCard = (category_id) => {
+export const addCard = (category_id, card) => {
     return (dispatch) => {
-        axios.post(`/api/categories/${category_id}/cards`)
+        axios.post(`/api/categories/${category_id}/cards`, card )
         .then(res => dispatch({type: ADD_CARD, card: res.data}))
     }
 }

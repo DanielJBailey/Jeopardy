@@ -17,9 +17,15 @@ class NewCardForm extends React.Component {
   }
 
   handleSubmit = e => {
-    let { dispatch } = this.props
+    let { dispatch, id} = this.props;
+    const category_id = parseInt(id);
     e.preventDefault()
-    dispatch(addCard({ ...this.state }))
+    dispatch(addCard( category_id, {...this.state }))
+    this.setState({
+      question: "",
+      dollar_value: 0,
+      answer: ""
+    })
   }
 
   render () {
@@ -44,12 +50,13 @@ class NewCardForm extends React.Component {
           name='dollar_value'
           value={dollar_value}
           onChange={this.handleChange}
+          required
         >
-          <option value='100'>$100</option>
-          <option value='200'>$200</option>
-          <option value='300'>$300</option>
-          <option value='400'>$400</option>
-          <option value='500'>$500</option>
+          <option value={100}>$100</option>
+          <option value={200}>$200</option>
+          <option value={300}>$300</option>
+          <option value={400}>$400</option>
+          <option value={500}>$500</option>
         </select>
         <input type='submit' value='Submit' />
       </Form>

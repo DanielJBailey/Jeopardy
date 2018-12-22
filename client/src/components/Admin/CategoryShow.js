@@ -1,35 +1,41 @@
 import React from 'react'
-import { connect } from 'react-redux'
-// import {
-//   deleteCategory,
-//   updateCategory,
-// } from '../../reducers/categories';   
-// import {getCards, deleteCard, addCard, updateCard} from "../../reducers/cards"; 
-// import styled from 'styled-components';
-// import Category from './Category';
+import { connect } from 'react-redux' 
+import {getCards} from "../../reducers/cards"; 
+import styled from 'styled-components';
 import NewCardForm from './NewCardForm';
 import AdminNavBar from './AdminNavBar';
 
 class CategoryShow extends React.Component {
-
-    state = {
-        cards: []
-    }
-
+    
     componentDidMount() {
-        // const {dispatch} = this.props;
-        // const {id} = this.props.match.params;
+        let {id} = this.props.match.params;
+        const {dispatch} = this.props;
+        dispatch(getCards(id))
     }
     
     render() {
+        let categoryName = this.props.category[0].name;
+        let {id} = this.props.match.params;
         return(
-            <>
+            <AdminContainer>
+                <h1>Category: {categoryName}</h1>
                 <AdminNavBar categoryButtons={false}/>
-                <NewCardForm />
-            </>
+                <NewCardForm id={id}/>
+            </AdminContainer>
         )
     }
 }
+
+const AdminContainer = styled.div`
+    height: 100%;
+    min-height: 100vh;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 100px;
+`;
 
 
 const mapStateToProps = (state, props) => {

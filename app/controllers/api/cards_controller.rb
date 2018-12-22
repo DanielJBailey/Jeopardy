@@ -11,7 +11,7 @@ class Api::CardsController < ApplicationController
   end
 
   def create
-    card = @category.card.new(card_params)
+    card = @category.cards.new(card_params)
     if card.save
       render json: card
     else
