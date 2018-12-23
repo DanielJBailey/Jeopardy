@@ -16,11 +16,12 @@ class CategoryShow extends React.Component {
     render() {
         let categoryName = this.props.category[0].name.toUpperCase();
         let {id} = this.props.match.params;
+        let {cards} = this.props;
         return(
             <AdminContainer>
                 <h1>{categoryName}</h1>
                 <AdminNavBar categoryButtons={false}/>
-                <NewCardForm id={id}/>
+                <NewCardForm id={id} cards={cards}/>
             </AdminContainer>
         )
     }

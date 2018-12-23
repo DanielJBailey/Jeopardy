@@ -2,12 +2,17 @@ import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { addCard } from '../../reducers/cards'
+import alert from 'sweetalert2';
 
 class NewCardForm extends React.Component {
   state = {
     question: '',
     answer: '',
-    dollar_value: 0
+    dollar_value: 200
+  }
+
+  componentDidUpdate() {
+    console.log(this.props.cards);
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -16,16 +21,33 @@ class NewCardForm extends React.Component {
     })
   }
 
+  checkDollarValues = (dollar_value) => {
+    let {cards} = this.props;
+    for(var i in cards) {
+      if(cards[i].dollar_value === parseInt(dollar_value)){
+        return true
+      }
+    }
+  }
+
   handleSubmit = e => {
     let { dispatch, id} = this.props;
     const category_id = parseInt(id);
     e.preventDefault()
-    dispatch(addCard( category_id, {...this.state }))
-    this.setState({
-      question: "",
-      dollar_value: 0,
-      answer: ""
-    })
+    if(this.checkDollarValues(this.state.dollar_value)) {
+      alert(
+        'Error adding card!',
+        `A $${this.state.dollar_value} value already exists!`,
+        'error'
+      )
+    } else {
+      dispatch(addCard( category_id, {...this.state }))
+      this.setState({
+        question: "",
+        dollar_value: 200,
+        answer: ""
+      })
+    }
   }
 
   render () {
@@ -56,11 +78,11 @@ class NewCardForm extends React.Component {
           className="dollar_value"
           required
         >
-          <option value={100}>$100</option>
           <option value={200}>$200</option>
-          <option value={300}>$300</option>
           <option value={400}>$400</option>
-          <option value={500}>$500</option>
+          <option value={600}>$600</option>
+          <option value={800}>$800</option>
+          <option value={1000}>$1000</option>
         </select>
         <input type='submit' value='Submit' className="submit"/>
       </Form>
@@ -75,14 +97,20 @@ const Form = styled.form`
   justify-content: center;
 
   .input {
-    padding: 10px 20px;
+    padding: 10px 15px;
     width: 300px;
     height: 40px;
     margin-right: 10px;
+    color: #2d3436;
     border: none;
     outline: none;
     font-size: 14px;
     border-radius: 5px;
+    font-weight: bold;
+    &::placeholder {
+      color: rgba(0,0,0,0.3);
+      padding-left: 5px;
+    }
   }
 
   .dollar_value {
@@ -100,9 +128,13 @@ const Form = styled.form`
     padding: 10px 15px;
     cursor: pointer;
     height: 40px;
+    outline: none;
     border: none;
     font-size: 14px;
     -webkit-appearance: button;
+    &:hover {
+      background-color: #4b7bec;
+    }
   }
   
 `
