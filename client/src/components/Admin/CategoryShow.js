@@ -35,10 +35,10 @@ const AdminContainer = styled.div`
     justify-content: flex-start;
     align-items: center;
     padding-top: 100px;
-    background-color: white;
 
     h1 {
         margin-bottom: 20px;
+        color: white;
     }
 `;
 

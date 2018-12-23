@@ -39,6 +39,7 @@ class NewCardForm extends React.Component {
           onChange={this.handleChange}
           className="input"
           required
+          autoFocus
         />
         <input
           placeholder='Answer'
@@ -61,7 +62,7 @@ class NewCardForm extends React.Component {
           <option value={400}>$400</option>
           <option value={500}>$500</option>
         </select>
-        <input type='submit' value='Submit' />
+        <input type='submit' value='Submit' className="submit"/>
       </Form>
     )
   }
@@ -69,17 +70,39 @@ class NewCardForm extends React.Component {
 
 const Form = styled.form`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   justify-content: center;
 
   .input {
     padding: 10px 20px;
-    width: 500px;
+    width: 300px;
+    height: 40px;
+    margin-right: 10px;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    border-radius: 5px;
   }
 
   .dollar_value {
-    width: 100%;
+    height: 40px;
+    font-size: 14px;
+    cursor: pointer;
+    width: 100px;
+    margin-right: 10px;
+  }
+
+  .submit {
+    border-radius: 5px;
+    background-color: #3867d6;
+    color: white;
+    padding: 10px 15px;
+    cursor: pointer;
+    height: 40px;
+    border: none;
+    font-size: 14px;
+    -webkit-appearance: button;
   }
   
 `
