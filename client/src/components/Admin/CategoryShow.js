@@ -6,7 +6,7 @@ import NewCardForm from './NewCardForm';
 import AdminNavBar from './AdminNavBar';
 
 class CategoryShow extends React.Component {
-    
+
     componentDidMount() {
         let {id} = this.props.match.params;
         const {dispatch} = this.props;
@@ -14,11 +14,11 @@ class CategoryShow extends React.Component {
     }
     
     render() {
-        let categoryName = this.props.category[0].name;
+        let categoryName = this.props.category[0].name.toUpperCase();
         let {id} = this.props.match.params;
         return(
             <AdminContainer>
-                <h1>Category: {categoryName}</h1>
+                <h1>{categoryName}</h1>
                 <AdminNavBar categoryButtons={false}/>
                 <NewCardForm id={id}/>
             </AdminContainer>
@@ -35,6 +35,11 @@ const AdminContainer = styled.div`
     justify-content: flex-start;
     align-items: center;
     padding-top: 100px;
+    background-color: white;
+
+    h1 {
+        margin-bottom: 20px;
+    }
 `;
 
 

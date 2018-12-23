@@ -37,10 +37,12 @@ class NewCardForm extends React.Component {
           name='question'
           value={question}
           onChange={this.handleChange}
+          className="input"
           required
         />
         <input
           placeholder='Answer'
+          className="input"
           name='answer'
           value={answer}
           onChange={this.handleChange}
@@ -50,6 +52,7 @@ class NewCardForm extends React.Component {
           name='dollar_value'
           value={dollar_value}
           onChange={this.handleChange}
+          className="dollar_value"
           required
         >
           <option value={100}>$100</option>
@@ -65,11 +68,20 @@ class NewCardForm extends React.Component {
 }
 
 const Form = styled.form`
-  width: 100%;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
+
+  .input {
+    padding: 10px 20px;
+    width: 500px;
+  }
+
+  .dollar_value {
+    width: 100%;
+  }
+  
 `
 
 export default connect()(NewCardForm)
