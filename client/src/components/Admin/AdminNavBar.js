@@ -32,6 +32,9 @@ const Nav = styled.ul`
   a {
     text-decoration: none;
     color: darkgray;
+    &:hover {
+      color: white;
+    }
   }
 `
 

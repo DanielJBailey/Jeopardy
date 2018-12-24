@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { addCard } from '../../reducers/cards'
-import alert from 'sweetalert2';
+import alert from 'sweetalert2'
 
 class NewCardForm extends React.Component {
   state = {
@@ -11,8 +11,8 @@ class NewCardForm extends React.Component {
     dollar_value: 200
   }
 
-  componentDidUpdate() {
-    console.log(this.props.cards);
+  componentDidUpdate () {
+    console.log(this.props.cards)
   }
 
   handleChange = ({ target: { name, value } }) => {
@@ -21,31 +21,36 @@ class NewCardForm extends React.Component {
     })
   }
 
-  checkDollarValues = (dollar_value) => {
-    let {cards} = this.props;
-    for(var i in cards) {
-      if(cards[i].dollar_value === parseInt(dollar_value)){
+  checkDollarValues = dollar_value => {
+    let { cards } = this.props
+    for (var i in cards) {
+      if (cards[i].dollar_value === parseInt(dollar_value)) {
         return true
       }
     }
   }
 
   handleSubmit = e => {
-    let { dispatch, id} = this.props;
-    const category_id = parseInt(id);
+    let { dispatch, id } = this.props
+    const category_id = parseInt(id)
     e.preventDefault()
-    if(this.checkDollarValues(this.state.dollar_value)) {
+    if (this.checkDollarValues(this.state.dollar_value)) {
       alert(
         'Error adding card!',
         `A $${this.state.dollar_value} value already exists!`,
         'error'
       )
     } else {
-      dispatch(addCard( category_id, {...this.state }))
+      dispatch(addCard(category_id, { ...this.state }))
+      alert(
+        'Card added!',
+        `You have added the $${this.state.dollar_value} card successfully!`,
+        'success'
+      ) 
       this.setState({
-        question: "",
+        question: '',
         dollar_value: 200,
-        answer: ""
+        answer: ''
       })
     }
   }
@@ -59,13 +64,13 @@ class NewCardForm extends React.Component {
           name='question'
           value={question}
           onChange={this.handleChange}
-          className="input"
+          className='input'
           required
           autoFocus
         />
         <input
           placeholder='Answer'
-          className="input"
+          className='input'
           name='answer'
           value={answer}
           onChange={this.handleChange}
@@ -75,7 +80,7 @@ class NewCardForm extends React.Component {
           name='dollar_value'
           value={dollar_value}
           onChange={this.handleChange}
-          className="dollar_value"
+          className='dollar_value'
           required
         >
           <option value={200}>$200</option>
@@ -84,7 +89,7 @@ class NewCardForm extends React.Component {
           <option value={800}>$800</option>
           <option value={1000}>$1000</option>
         </select>
-        <input type='submit' value='Submit' className="submit"/>
+        <input type='submit' value='Submit' className='submit' />
       </Form>
     )
   }
@@ -101,6 +106,7 @@ const Form = styled.form`
     width: 300px;
     height: 40px;
     margin-right: 10px;
+    background-color: rgba(0,0,0,0.05);
     color: #2d3436;
     border: none;
     outline: none;
@@ -108,7 +114,7 @@ const Form = styled.form`
     border-radius: 5px;
     font-weight: bold;
     &::placeholder {
-      color: rgba(0,0,0,0.3);
+      color: rgba(0, 0, 0, 0.3);
       padding-left: 5px;
     }
   }
@@ -119,6 +125,12 @@ const Form = styled.form`
     cursor: pointer;
     width: 100px;
     margin-right: 10px;
+    color: rgba(0, 0, 0, 0.3);
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    background-color: rgba(0,0,0,0.05);
+    border: none;
+    font-weight: bold;
   }
 
   .submit {
@@ -136,7 +148,6 @@ const Form = styled.form`
       background-color: #4b7bec;
     }
   }
-  
 `
 
 export default connect()(NewCardForm)
