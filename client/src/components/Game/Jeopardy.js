@@ -63,33 +63,53 @@ const Jeopardy = () => (
         <NameContainer>
             Daniel
         </NameContainer>
+        <MoneyContainer>
+            $1000
+        </MoneyContainer>
     </ScoreBoard>
   </GameContainer>
 )
+
+const MoneyContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background: linear-gradient(to top, #4a69bd, #1e3799, #1e3799, #4a69bd);
+    align-items: center;
+    width: 50%;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 900;
+    font-size: 45px;
+    color: white;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+`;
 
 const ScoreBoard = styled.div`
     height: 100px;
     width: 600px;
     background-color: #3B3131;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    box-shadow: inset 4px 4px 10px rgba(0,0,0,0.3);
-    position: relative;
+    box-shadow: inset 4px 4px 10px rgba(0,0,0,0.3), 3px 5px 20px rgba(0,0,0,0.3);
+    position: absolute;
+    padding: 5px;
+    top: 0;
+    right: 0;
+    display: flex;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
 `;
 
 const NameContainer = styled.div`
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 50%;
     height: 100%;
+    margin-right: 10px;
     background-color: #1e3799;
     background: linear-gradient(to top, #4a69bd, #1e3799, #1e3799, #4a69bd);
-    margin: 10px;
-    border-top-left-radius: 10px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
     align-items: center;
     font-family: 'Shadows Into Light', cursive;
     color: white;
@@ -148,12 +168,12 @@ const GameContainer = styled.div`
   background: linear-gradient(to bottom left, #4776e6, #8e54e9);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
 
   .logo {
-    max-width: 200px;
-    margin-top: 10px;
+    max-width: 300px;
+    margin-bottom: 20px;
   }
 `
 
