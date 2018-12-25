@@ -7,9 +7,9 @@ const DELETE_CARD = "DELETE_CARD";
 
 //Redux Actions
 
-export const getCards = (category_id) => {
+export const getCards = () => {
     return (dispatch) => {
-        axios.get(`/api/categories/${category_id}/cards`)
+        axios.get(`/api/cards`)
         .then(res=> dispatch({type: CARDS, cards: res.data}))
     }
 }
