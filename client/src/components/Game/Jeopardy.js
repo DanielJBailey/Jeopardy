@@ -13,6 +13,7 @@ import {
 	NameContainer
 } from "./BoardStyles";
 import StartingScreen from './StartingScreen';
+import themeSong from "../../assets/theme-song.mp3";
 
 class Jeopardy extends React.Component {
 	state = {
@@ -24,7 +25,19 @@ class Jeopardy extends React.Component {
 	componentWillMount() {
 		const { dispatch } = this.props;
 		dispatch(getCategories(this.getCards));
-	}
+  }
+  
+  updatePlayerName = name => {
+    this.setState({
+      playerName: name
+    })
+  }
+
+  closeStartScreen = () => {
+    this.setState({
+      showStart: false
+    })
+  }
 
 	getCards = () => {
 		const { dispatch } = this.props;
@@ -43,11 +56,17 @@ class Jeopardy extends React.Component {
 
 	render() {
 		let { money, showStart } = this.state;
-		let { categories, cards } = this.props;
+    let { categories, cards } = this.props;
+    let theme = new Audio(themeSong);
 
 		return (
 			<>
-				<StartingScreen show={showStart}/>
+        <StartingScreen 
+          show={showStart} 
+          update={this.updatePlayerName}
+          close={this.closeStartScreen}
+          song={theme}
+        />
 				<GameContainer>
 					<GameBoard>
 						<CategoriesContainer>
