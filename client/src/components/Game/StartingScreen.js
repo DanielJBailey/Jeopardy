@@ -2,13 +2,15 @@ import React from "react";
 import styled from "styled-components";
 import logo from "../../assets/logo.png";
 import alex from "../../assets/Alex.png";
+import theme from "../../assets/theme-song.mp3";
 
 
 class StartingScreen extends React.Component {
 	state = {
-		name: ""
-	};
-
+        name: "",
+        playing: true
+    };
+    
 	handleChange = ({ target: { name, value } }) => {
 		this.setState({
 			[name]: value
@@ -16,24 +18,26 @@ class StartingScreen extends React.Component {
 	};
 
 	handleSubmit = e => {
-        let {update, close, song} = this.props;
+        let {update, close } = this.props;
         e.preventDefault();
         update(this.state.name);
         close();
-        song.currentTime = 0;
-        song.pause();
+        this.setState({
+            playing: false
+        })
 	};
 
-	componentDidMount() {
-        let {song} = this.props;
-        song.play();
-	}
-
 	render() {
-		let { name } = this.state;
+		let { name, playing } = this.state;
         let { show } = this.props;
 		return (
 			<>
+                {playing ? 
+                    <audio 
+                        autoPlay
+                        src={theme}
+                    />
+                : null}
 				{show ? (
 					<ScreenContainer>
 						<img src={logo} alt="game-logo" />

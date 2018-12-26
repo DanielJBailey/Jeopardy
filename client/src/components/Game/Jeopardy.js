@@ -12,36 +12,40 @@ import {
 	MoneyContainer,
 	NameContainer
 } from "./BoardStyles";
-import StartingScreen from './StartingScreen';
-import themeSong from "../../assets/theme-song.mp3";
+import StartingScreen from "./StartingScreen";
+import start_game from '../../assets/game_start.mp3';
 
 class Jeopardy extends React.Component {
 	state = {
 		money: 0,
-		playerName: "Daniel",
-		showStart: true
+		playerName: undefined,
+    showStart: true,
+    gameStarted: false
 	};
 
 	componentWillMount() {
 		const { dispatch } = this.props;
 		dispatch(getCategories(this.getCards));
-  }
-  
-  updatePlayerName = name => {
-    this.setState({
-      playerName: name
-    })
-  }
+	}
 
-  closeStartScreen = () => {
-    this.setState({
-      showStart: false
-    })
-  }
+	updatePlayerName = name => {
+		this.setState({
+			playerName: name
+		});
+	};
+
+	closeStartScreen = () => {
+		this.setState({
+			showStart: false
+		});
+	};
 
 	getCards = () => {
 		const { dispatch } = this.props;
-		dispatch(getCards());
+    dispatch(getCards());
+    this.setState({
+      gameStarted: true
+    })
 	};
 
 	handleClick = index => {
@@ -55,19 +59,18 @@ class Jeopardy extends React.Component {
 	};
 
 	render() {
-		let { money, showStart } = this.state;
-    let { categories, cards } = this.props;
-    let theme = new Audio(themeSong);
+		let { money, showStart, playerName } = this.state;
+		let { categories, cards } = this.props;
 
 		return (
 			<>
-        <StartingScreen 
-          show={showStart} 
-          update={this.updatePlayerName}
-          close={this.closeStartScreen}
-          song={theme}
-        />
+				<StartingScreen
+					show={showStart}
+					update={this.updatePlayerName}
+					close={this.closeStartScreen}
+				/>
 				<GameContainer>
+          {playerName === undefined ? null: <audio autoPlay src={start_game} />}
 					<GameBoard>
 						<CategoriesContainer>
 							<ul />
