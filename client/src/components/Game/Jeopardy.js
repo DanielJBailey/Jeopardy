@@ -49,18 +49,23 @@ class Jeopardy extends React.Component {
 	};
 
 	handleClick = index => {
-		let {cards, categories} = this.props
-		console.log(index);
-		let playedCard = cards.filter(card => card.id === index)
-		let category = categories.filter(cat => cat.id === playedCard[0].category_id);
-		console.log(playedCard[0].question);
-		console.log(playedCard[0].answer);
-		console.log(category[0].name);
+		// let {cards, categories} = this.props
+		// console.log(index);
+		// let playedCard = cards.filter(card => card.id === index)
+		// let category = categories.filter(cat => cat.id === playedCard[0].category_id);
+		// console.log(playedCard[0].question);
+		// console.log(playedCard[0].answer);
+    // console.log(category[0].name);
+    // console.log(playedCard[0].dollar_value)
 	};
 
 	render() {
 		let { money, showStart, playerName } = this.state;
-		let { categories, cards } = this.props;
+    let { categories, cards } = this.props;
+    // SORT CARDS BY DOLLAR VALUE
+    cards = cards.sort((a,b) => {
+      return a.dollar_value - b.dollar_value;
+    })
 
 		return (
 			<>
