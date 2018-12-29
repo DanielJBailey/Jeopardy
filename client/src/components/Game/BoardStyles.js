@@ -74,7 +74,7 @@ export const ChoicesContainer = styled.div`
 			background-color: #0c2461;
 			font-family: "Roboto", sans-serif;
 			font-size: 5vmin;
-			padding: 20px 0;
+			min-height: 75px;
 			color: yellow;
 			font-weight: bold;
 			width: 100%;

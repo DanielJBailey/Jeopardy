@@ -19,12 +19,16 @@ class Jeopardy extends React.Component {
 	state = {
 		money: 0,
 		playerName: undefined,
-		showStart: true,
+		showStart: false,
 		gameStarted: false,
-		cardsInPlay: []
+		cardsInPlay: [],
+		question: "",
+		answer: "",
+		dollar_value: undefined,
+		showModal: false
 	};
 
-	componentWillMount() {
+	componentDidMount() {
 		const { dispatch } = this.props;
 		dispatch(getCategories(this.getCards));
 	}
@@ -52,33 +56,29 @@ class Jeopardy extends React.Component {
 	updateCardsInPlay = () => {
 		let { cards } = this.props;
 		let { cardsInPlay } = this.state;
-		if (cardsInPlay.length === 0) {
-			this.setState({ cardsInPlay: cards }, () => {
-				cardsInPlay.map(
-					card => (card.initialValue = card.dollar_value)
-				);
-			});
-		}
+		return cardsInPlay.length === 0
+			? this.setState({ cardsInPlay: cards })
+			: null;
 	};
 
-	handleClick = index => {
+	handleClick = (card, index) => {
 		let { cardsInPlay } = this.state;
 		let cardIndex = cardsInPlay.findIndex(card => card.id === index);
-		let cardInPlay = { ...this.state.cardsInPlay[cardIndex] };
-		cardInPlay.dollar_value = 0;
-		this.setState(
-			{ cardsInPlay: cardsInPlay.filter(c => c.id !== index) },
-			() => this.addUpdatedCardBack(cardInPlay)
-		);
-	};
-
-	addUpdatedCardBack = card => {
-		let { cardsInPlay } = this.state;
-		let AllCards = [...cardsInPlay, card];
-		AllCards = AllCards.sort((a, b) => b.dollar_value - a.dollar_value);
-		this.setState({
-			cardsInPlay: AllCards
-		});
+		let cardInPlay = cardsInPlay[cardIndex];
+		if (cardInPlay.dollar_value === 0) {
+			console.log("Already played that one!");
+		} else {
+			this.setState({
+				question: card.question,
+				answer: card.answer,
+				dollar_value: card.dollar_value
+			});
+			cardsInPlay[cardIndex].dollar_value = 0;
+			console.log(cardsInPlay);
+			this.setState({
+				cardsInPlay: cardsInPlay
+			});
+		}
 	};
 
 	render() {
@@ -113,7 +113,10 @@ class Jeopardy extends React.Component {
 												className="card"
 												key={card.id}
 												onClick={() =>
-													this.handleClick(card.id)
+													this.handleClick(
+														card,
+														card.id
+													)
 												}
 											>
 												{card.dollar_value !== 0
@@ -132,7 +135,10 @@ class Jeopardy extends React.Component {
 												className="card"
 												key={card.id}
 												onClick={() =>
-													this.handleClick(card.id)
+													this.handleClick(
+														card,
+														card.id
+													)
 												}
 											>
 												{card.dollar_value !== 0
@@ -151,7 +157,10 @@ class Jeopardy extends React.Component {
 												className="card"
 												key={card.id}
 												onClick={() =>
-													this.handleClick(card.id)
+													this.handleClick(
+														card,
+														card.id
+													)
 												}
 											>
 												{card.dollar_value !== 0
@@ -170,7 +179,10 @@ class Jeopardy extends React.Component {
 												className="card"
 												key={card.id}
 												onClick={() =>
-													this.handleClick(card.id)
+													this.handleClick(
+														card,
+														card.id
+													)
 												}
 											>
 												{card.dollar_value !== 0
@@ -189,7 +201,10 @@ class Jeopardy extends React.Component {
 												className="card"
 												key={card.id}
 												onClick={() =>
-													this.handleClick(card.id)
+													this.handleClick(
+														card,
+														card.id
+													)
 												}
 											>
 												{card.dollar_value !== 0
@@ -208,7 +223,10 @@ class Jeopardy extends React.Component {
 												className="card"
 												key={card.id}
 												onClick={() =>
-													this.handleClick(card.id)
+													this.handleClick(
+														card,
+														card.id
+													)
 												}
 											>
 												{card.dollar_value !== 0
