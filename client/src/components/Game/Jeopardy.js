@@ -7,10 +7,10 @@ import {
 	GameContainer,
 	Category,
 	CategoriesContainer,
-	ChoicesContainer,
-	ScoreBoard,
-	MoneyContainer,
-	NameContainer
+	ChoicesContainer
+	// ScoreBoard,
+	// MoneyContainer,
+	// NameContainer
 } from "./BoardStyles";
 import StartingScreen from "./StartingScreen";
 import start_game from "../../assets/game_start.mp3";
@@ -19,7 +19,7 @@ class Jeopardy extends React.Component {
 	state = {
 		money: 0,
 		playerName: undefined,
-		showStart: false,
+		showStart: true,
 		gameStarted: false,
 		cardsInPlay: []
 	};
@@ -29,9 +29,13 @@ class Jeopardy extends React.Component {
 		dispatch(getCategories(this.getCards));
 	}
 
-	componentDidUpdate() {
-		console.log(this.state.cardsInPlay);
-	}
+	getCards = () => {
+		const { dispatch } = this.props;
+		dispatch(getCards(this.updateCardsInPlay));
+		this.setState({
+			gameStarted: true
+		});
+	};
 
 	updatePlayerName = name => {
 		this.setState({
@@ -45,47 +49,41 @@ class Jeopardy extends React.Component {
 		});
 	};
 
-	getCards = () => {
-		const { dispatch } = this.props;
-		dispatch(getCards(this.updateCardsInPlay));
-		this.setState({
-			gameStarted: true
-		});
-	};
-
 	updateCardsInPlay = () => {
 		let { cards } = this.props;
+		let { cardsInPlay } = this.state;
+		if (cardsInPlay.length === 0) {
+			this.setState({ cardsInPlay: cards }, () => {
+				cardsInPlay.map(
+					card => (card.initialValue = card.dollar_value)
+				);
+			});
+		}
+	};
+
+	handleClick = index => {
+		let { cardsInPlay } = this.state;
+		let cardIndex = cardsInPlay.findIndex(card => card.id === index);
+		let cardInPlay = { ...this.state.cardsInPlay[cardIndex] };
+		cardInPlay.dollar_value = 0;
+		this.setState(
+			{ cardsInPlay: cardsInPlay.filter(c => c.id !== index) },
+			() => this.addUpdatedCardBack(cardInPlay)
+		);
+	};
+
+	addUpdatedCardBack = card => {
+		let { cardsInPlay } = this.state;
+		let AllCards = [...cardsInPlay, card];
+		AllCards = AllCards.sort((a, b) => b.dollar_value - a.dollar_value);
 		this.setState({
-			cardsInPlay: cards
+			cardsInPlay: AllCards
 		});
 	};
 
-	handleClick = (index) => {
-		let {cardsInPlay} = this.state;
-		// let playedCard = cardsInPlay.filter(card => card.id === index);
-		// playedCard = playedCard[0];
-		let cardIndex = cardsInPlay.findIndex(card => card.id === index)
-		let cardInPlay = {...this.state.cardsInPlay[cardIndex]};
-		cardInPlay.dollar_value = 0;
-		this.setState({
-			cardsInPlay: cardsInPlay.filter(c => c.id !== index)
-		}, () => {
-			this.addUpdatedCardBack(cardInPlay);
-		})
-	};
-
-	addUpdatedCardBack = (updatedCard) => {
-		let {cardsInPlay} = this.state;
-		this.setState({
-			cardsInPlay: [...cardsInPlay, updatedCard]
-		}, () => console.log(cardsInPlay))
-	}
-
 	render() {
-		let { money, showStart, playerName, cardsInPlay} = this.state;
-		let { categories} = this.props;
-		// SORT CARDS BY DOLLAR VALUE
-
+		let { money, showStart, playerName, cardsInPlay } = this.state;
+		let { categories } = this.props;
 		return (
 			<>
 				<StartingScreen
@@ -115,12 +113,12 @@ class Jeopardy extends React.Component {
 												className="card"
 												key={card.id}
 												onClick={() =>
-													this.handleClick(
-														card.id
-													)
+													this.handleClick(card.id)
 												}
 											>
-												{card.dollar_value !== 0 ? `$${card.dollar_value}`: null}
+												{card.dollar_value !== 0
+													? `$${card.dollar_value}`
+													: null}
 											</li>
 										);
 									} else return null;
@@ -134,12 +132,12 @@ class Jeopardy extends React.Component {
 												className="card"
 												key={card.id}
 												onClick={() =>
-													this.handleClick(
-														card.id
-													)
+													this.handleClick(card.id)
 												}
 											>
-												{card.dollar_value !== 0 ? `$${card.dollar_value}`: null}
+												{card.dollar_value !== 0
+													? `$${card.dollar_value}`
+													: null}
 											</li>
 										);
 									} else return null;
@@ -153,12 +151,12 @@ class Jeopardy extends React.Component {
 												className="card"
 												key={card.id}
 												onClick={() =>
-													this.handleClick(
-														card.id
-													)
+													this.handleClick(card.id)
 												}
 											>
-												{card.dollar_value !== 0 ? `$${card.dollar_value}`: null}
+												{card.dollar_value !== 0
+													? `$${card.dollar_value}`
+													: null}
 											</li>
 										);
 									} else return null;
@@ -172,12 +170,12 @@ class Jeopardy extends React.Component {
 												className="card"
 												key={card.id}
 												onClick={() =>
-													this.handleClick(
-														card.id
-													)
+													this.handleClick(card.id)
 												}
 											>
-												{card.dollar_value !== 0 ? `$${card.dollar_value}`: null}
+												{card.dollar_value !== 0
+													? `$${card.dollar_value}`
+													: null}
 											</li>
 										);
 									} else return null;
@@ -191,12 +189,12 @@ class Jeopardy extends React.Component {
 												className="card"
 												key={card.id}
 												onClick={() =>
-													this.handleClick(
-														card.id
-													)
+													this.handleClick(card.id)
 												}
 											>
-												{card.dollar_value !== 0 ? `$${card.dollar_value}`: null}
+												{card.dollar_value !== 0
+													? `$${card.dollar_value}`
+													: null}
 											</li>
 										);
 									} else return null;
@@ -210,12 +208,12 @@ class Jeopardy extends React.Component {
 												className="card"
 												key={card.id}
 												onClick={() =>
-													this.handleClick(
-														card.id
-													)
+													this.handleClick(card.id)
 												}
 											>
-												{card.dollar_value !== 0 ? `$${card.dollar_value}`: null}
+												{card.dollar_value !== 0
+													? `$${card.dollar_value}`
+													: null}
 											</li>
 										);
 									} else return null;
@@ -223,10 +221,10 @@ class Jeopardy extends React.Component {
 							</ul>
 						</ChoicesContainer>
 					</GameBoard>
-					<ScoreBoard>
+					{/* <ScoreBoard>
 						<NameContainer>{playerName}</NameContainer>
 						<MoneyContainer>${money}</MoneyContainer>
-					</ScoreBoard>
+					</ScoreBoard> */}
 				</GameContainer>
 			</>
 		);

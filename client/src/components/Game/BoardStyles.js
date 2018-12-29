@@ -17,7 +17,7 @@ export const MoneyContainer = styled.div`
 
 export const ScoreBoard = styled.div`
 	height: 100px;
-	width: 600px;
+	width: auto;
 	background-color: #3b3131;
 	box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.3),
 		3px 5px 20px rgba(0, 0, 0, 0.3);
@@ -25,6 +25,9 @@ export const ScoreBoard = styled.div`
 	display: flex;
 	border-radius: 5px;
 	margin-top: 25px;
+	position: absolute;
+	bottom: 0;
+	right: 0;
 `;
 
 export const NameContainer = styled.div`
@@ -49,7 +52,7 @@ export const ChoicesContainer = styled.div`
 	flex-direction: row;
 	align-items: center;
 	justify-content: center;
-	height: auto;
+	max-height: 100vh;
 	width: 100%;
 
 	ul {
@@ -57,7 +60,7 @@ export const ChoicesContainer = styled.div`
 		display: flex;
 		flex-direction: column;
 		justify-content: flex-start;
-		align-items: center;
+		/* align-items: center; */
 		list-style: none;
 		margin: 0 5px;
 		&:first-child {
@@ -67,14 +70,13 @@ export const ChoicesContainer = styled.div`
 			margin: 0 0 0 5px;
 		}
 		.card {
-			display: block;
+			display: flex;
 			background-color: #0c2461;
 			font-family: "Roboto", sans-serif;
-			font-size: 40px;
+			font-size: 5vmin;
+			padding: 20px 0;
 			color: yellow;
 			font-weight: bold;
-			flex: 1;
-			min-height: 100px;
 			width: 100%;
 			box-shadow: inset -5px -5px 10px rgba(0, 0, 0, 0.7),
 				inset 5px 5px 5px #1e3799;
@@ -98,21 +100,17 @@ export const GameContainer = styled.div`
 	height: 100%;
 	width: 100vw;
 	min-height: 100vh;
-	overflow: hidden;
 	background: linear-gradient(to bottom left, #4776e6, #8e54e9);
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	align-items: center;
-
-	.logo {
-		max-width: 300px;
-		margin-bottom: 20px;
-	}
+	margin-bottom: 100px;
 `;
 
 export const GameBoard = styled.div`
-	width: 75vw;
+	width: 100%;
+	max-width: 75vw;
 	height: auto;
 	background-color: black;
 	box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
