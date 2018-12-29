@@ -20,7 +20,7 @@ class Jeopardy extends React.Component {
 	state = {
 		money: 0,
 		playerName: undefined,
-		showStart: false,
+		showStart: true,
 		gameStarted: false,
 		cardsInPlay: [],
 		question: "",

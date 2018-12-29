@@ -1,30 +1,55 @@
 import React from "react";
 import styled from "styled-components";
 
-const QuestionModel = ({ question, answer }) => {
-	let startingTimer = 30;
-	let remaining = 30;
-	let progressWidth = remaining / startingTimer;
-	let timer = setInterval(function() {
-		remaining--;
-		progressWidth = remaining / startingTimer;
-		if (remaining === 0) {
-			clearInterval(timer);
-			console.log("finished!");
-		}
-	}, 1000);
+class QuestionModal extends React.Component {
+	state = {
+		timer: 15
+	};
 
-	console.log(progressWidth);
+	componentDidUpdate() {
+		console.log(this.state);
+	}
 
-	return (
-		<ModalContainer>
-			<TimerContainer>
-				<ProgressBar width={progressWidth} />
-			</TimerContainer>
-			<h1>{question}</h1>
-		</ModalContainer>
-	);
-};
+	componentDidMount() {
+		this.startTimer();
+	}
+
+	startTimer = () => {
+		let { timer } = this.state;
+		this.setState({
+			timer: timer--
+		});
+		let countDown = setInterval(() => {
+			if (timer >= 0) {
+				this.setState({
+					timer: timer--
+				});
+			} else clearInterval(countDown);
+		}, 1000);
+	};
+
+	render() {
+		let { question, answer } = this.props;
+		let { timer } = this.state;
+		return (
+			<ModalContainer>
+				<TimerContainer>
+					<ProgressBar
+						width={timer}
+						style={
+							timer > 10
+								? { backgroundColor: "#00b894" }
+								: timer > 5
+								? { backgroundColor: "#ffeaa7" }
+								: { backgroundColor: "#d63031" }
+						}
+					/>
+				</TimerContainer>
+				<h1>{question}</h1>
+			</ModalContainer>
+		);
+	}
+}
 
 const TimerContainer = styled.div`
 	position: absolute;
@@ -34,17 +59,18 @@ const TimerContainer = styled.div`
 	height: 10px;
 	background-color: black;
 	border-radius: 5px;
-	position: relative;
 `;
 
 const ProgressBar = styled.div`
 	position: absolute;
 	top: 0;
-	left: 0;
-    background-color: green;
-    width: 100%; 
+    left: 0;
+    transition: 0.2s;
+	background-color: green;
+	width: ${props => (props.width / 15) * 100 + "%"};
 	border-radius: 10px;
 	height: 100%;
+	margin: 0 auto;
 `;
 
 const ModalContainer = styled.div`
@@ -75,4 +101,4 @@ const ModalContainer = styled.div`
 	}
 `;
 
-export default QuestionModel;
+export default QuestionModal;
