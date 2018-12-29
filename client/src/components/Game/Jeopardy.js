@@ -14,6 +14,7 @@ import {
 } from "./BoardStyles";
 import StartingScreen from "./StartingScreen";
 import start_game from "../../assets/game_start.mp3";
+import QuestionModal from "../Game/QuestionModal";
 
 class Jeopardy extends React.Component {
 	state = {
@@ -65,24 +66,30 @@ class Jeopardy extends React.Component {
 		let { cardsInPlay } = this.state;
 		let cardIndex = cardsInPlay.findIndex(card => card.id === index);
 		let cardInPlay = cardsInPlay[cardIndex];
-		if (cardInPlay.dollar_value === 0) {
-			console.log("Already played that one!");
-		} else {
+		if (cardInPlay.dollar_value !== 0) {
 			this.setState({
 				question: card.question,
 				answer: card.answer,
 				dollar_value: card.dollar_value
 			});
 			cardsInPlay[cardIndex].dollar_value = 0;
-			console.log(cardsInPlay);
 			this.setState({
-				cardsInPlay: cardsInPlay
+				cardsInPlay: cardsInPlay,
+				showModal: true
 			});
 		}
 	};
 
 	render() {
-		let { money, showStart, playerName, cardsInPlay } = this.state;
+		let {
+			// money,
+			showStart,
+			playerName,
+			cardsInPlay,
+			showModal,
+			question,
+			answer
+		} = this.state;
 		let { categories } = this.props;
 		return (
 			<>
@@ -92,6 +99,12 @@ class Jeopardy extends React.Component {
 					close={this.closeStartScreen}
 				/>
 				<GameContainer>
+					{showModal ? 
+					<QuestionModal
+						question={question}
+						answer={answer}
+					/> : null}
+					
 					{playerName === undefined ? null : (
 						<audio autoPlay src={start_game} />
 					)}
