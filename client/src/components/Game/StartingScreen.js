@@ -7,7 +7,7 @@ import theme from "../../assets/theme-song.mp3";
 class StartingScreen extends React.Component {
 	state = {
 		name: "",
-		play: true
+		playing: true
 	};
 
 	handleChange = ({ target: { name, value } }) => {

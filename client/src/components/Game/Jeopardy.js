@@ -7,7 +7,7 @@ import {
 	GameContainer,
 	Category,
 	CategoriesContainer,
-	ChoicesContainer
+	ChoicesContainer,
 	// ScoreBoard,
 	// MoneyContainer,
 	// NameContainer
@@ -20,7 +20,7 @@ class Jeopardy extends React.Component {
 	state = {
 		money: 0,
 		playerName: undefined,
-		showStart: true,
+		showStart: false,
 		gameStarted: false,
 		cardsInPlay: [],
 		question: "",

@@ -3,12 +3,12 @@ import styled from "styled-components";
 
 class QuestionModal extends React.Component {
 	state = {
-		timer: 15
-	};
-
-	componentDidUpdate() {
-		console.log(this.state);
-	}
+		timer: 10
+    };
+    
+    componentDidUpdate() {
+        console.log(this.state.timer);
+    }
 
 	componentDidMount() {
 		this.startTimer();
@@ -26,24 +26,31 @@ class QuestionModal extends React.Component {
 				});
 			} else clearInterval(countDown);
 		}, 1000);
-	};
+    };
+
+    renderSquares = (color) => {
+        let {timer} = this.state;
+        for(var i = 0; i < timer; i++) {
+            return <ProgressSquare color={color}/>
+        }
+    }
 
 	render() {
 		let { question, answer } = this.props;
-		let { timer } = this.state;
+        let { timer } = this.state;
+        let color;
+        if(timer > 7) {
+            color = "green";
+        } else if (timer > 4) {
+            color = "yellow";
+        } else {        
+            color = "red";
+        }
+        
 		return (
 			<ModalContainer>
 				<TimerContainer>
-					<ProgressBar
-						width={timer}
-						style={
-							timer > 10
-								? { backgroundColor: "#00b894" }
-								: timer > 5
-								? { backgroundColor: "#ffeaa7" }
-								: { backgroundColor: "#d63031" }
-						}
-					/>
+                    {this.renderSquares(color)}
 				</TimerContainer>
 				<h1>{question}</h1>
 			</ModalContainer>
@@ -56,22 +63,27 @@ const TimerContainer = styled.div`
 	top: 0;
 	margin: 50px auto;
 	width: 300px;
-	height: 10px;
-	background-color: black;
-	border-radius: 5px;
+	height: 15px;
+    background-color: black;
+    border: 2px solid silver;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
 `;
 
-const ProgressBar = styled.div`
-	position: absolute;
-	top: 0;
-    left: 0;
-    transition: 0.2s;
-	background-color: green;
-	width: ${props => (props.width / 15) * 100 + "%"};
-	border-radius: 10px;
-	height: 100%;
-	margin: 0 auto;
+const ProgressSquare = styled.div`
+    width: 30px;
+    height: 100%;
+    background-color: ${props => props.color}; 
+    border-right: 2px solid silver;
+    &:last-child {
+        border-right: none;
+    }
 `;
+
+
 
 const ModalContainer = styled.div`
 	position: absolute;
