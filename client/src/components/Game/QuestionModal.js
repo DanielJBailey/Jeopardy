@@ -1,11 +1,10 @@
 import React from "react";
 import styled from "styled-components";
 import alert from "sweetalert2";
-import { MoneyContainer } from "./BoardStyles";
 
 class QuestionModal extends React.Component {
 	state = {
-		timer: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+		timer: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 		answer: ""
 	};
 
@@ -45,7 +44,7 @@ class QuestionModal extends React.Component {
 	};
 
 	handleSubmit = e => {
-		let {close, value, money} = this.props;
+		let {close, value, increase, decrease} = this.props;
 		e.preventDefault();
 		let userAnswer = this.state.answer;
 		if (this.checkAnswer(userAnswer)) {
@@ -54,7 +53,7 @@ class QuestionModal extends React.Component {
 			}, () => {
 				alert("Correct!", `Nice job you just won $${value}!`, "success");
 				clearInterval(window.countDown);
-				money(+value)
+				increase(value)
 				close();
 			})
 			
@@ -64,7 +63,7 @@ class QuestionModal extends React.Component {
 			}, () => {
 				alert("Wrong!", `Sorry, you just lost $${value}`, "error");
 				clearInterval(window.countDown);
-				money(-value)
+				decrease(value)
 				close();
 			})
 		}
@@ -144,7 +143,7 @@ const TimerContainer = styled.div`
 `;
 
 const ProgressSquare = styled.div`
-	width: 20px;
+	width: 30px;
 	height: 100%;
 	background-color: ${props => props.color};
 `;

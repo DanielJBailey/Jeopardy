@@ -4,7 +4,7 @@ export const MoneyContainer = styled.div`
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	background: linear-gradient(to top, #4a69bd, #1e3799, #1e3799, #4a69bd);
+	background: ${props => props.color};
 	align-items: center;
 	flex: 1;
 	font-family: "Roboto", sans-serif;
@@ -33,7 +33,7 @@ export const NameContainer = styled.div`
 	height: 100%;
 	margin-right: 10px;
 	background-color: #1e3799;
-	background: linear-gradient(to top, #4a69bd, #1e3799, #1e3799, #4a69bd);
+	background: #060CE9;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

@@ -35,11 +35,19 @@ class Jeopardy extends React.Component {
 		dispatch(getCategories(this.getCards));
 	}
 
-	updateMoney = (result) => {
-		let {money} = this.state;
-		console.log(result);
-		
-	}
+	increaseBalance = amount => {
+		let { money } = this.state;
+		this.setState({
+			money: money + amount
+		});
+	};
+
+	decreaseBalance = amount => {
+		let { money } = this.state;
+		this.setState({
+			money: money - amount
+		});
+	};
 
 	getCards = () => {
 		const { dispatch } = this.props;
@@ -89,11 +97,11 @@ class Jeopardy extends React.Component {
 	};
 
 	closeQuestion = () => {
-		let {showModal} = this.state;
+		let { showModal } = this.state;
 		this.setState({
 			showModal: !showModal
-		})
-	}
+		});
+	};
 
 	render() {
 		let {
@@ -110,23 +118,27 @@ class Jeopardy extends React.Component {
 		let { categories } = this.props;
 		return (
 			<>
-				{showStart ? <StartingScreen
-					show={showStart}
-					update={this.updatePlayerName}
-					close={this.closeStartScreen}
-				/> : null}
-				
+				{showStart ? (
+					<StartingScreen
+						show={showStart}
+						update={this.updatePlayerName}
+						close={this.closeStartScreen}
+					/>
+				) : null}
+
 				<GameContainer>
-					{showModal ? 
-					<QuestionModal
-						question={question}
-						answer={answer}
-						value={dollar_value}
-						accepted_answers={accepted_answers}
-						close={this.closeQuestion}
-						money={this.updateMoney}
-					/> : null}
-					
+					{showModal ? (
+						<QuestionModal
+							question={question}
+							answer={answer}
+							value={dollar_value}
+							accepted_answers={accepted_answers}
+							close={this.closeQuestion}
+							increase={this.increaseBalance}
+							decrease={this.decreaseBalance}
+						/>
+					) : null}
+
 					{playerName === undefined ? null : (
 						<audio autoPlay src={start_game} />
 					)}
@@ -276,7 +288,7 @@ class Jeopardy extends React.Component {
 					</GameBoard>
 					<ScoreBoard>
 						<NameContainer>{playerName}</NameContainer>
-						<MoneyContainer>${money}</MoneyContainer>
+						<MoneyContainer color={money < 0 ? 'red' : '#060CE9'}>${money}</MoneyContainer>
 					</ScoreBoard>
 				</GameContainer>
 			</>
