@@ -14,6 +14,12 @@ class CategoryShow extends React.Component {
     dispatch(getCards(id))
   }
 
+  // componentDidUpdate() {
+  //   let list = this.props.cards[4].accepted_answers.split('');
+  //   let last_character = list.pop()
+  //   if(last_character == ',') console.log(true)
+  // } 
+
   handleDelete = (card_id) => {
     let category_id = this.props.match.params.id
     let {dispatch} = this.props;
