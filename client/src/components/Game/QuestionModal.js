@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import alert from "sweetalert2";
+import { MoneyContainer } from "./BoardStyles";
 
 class QuestionModal extends React.Component {
 	state = {
@@ -38,12 +39,13 @@ class QuestionModal extends React.Component {
 
 	checkAnswer = userAnswer => {
 		let { accepted_answers } = this.props;
-		accepted_answers = accepted_answers.replace(", ", ",").split(",");
+		accepted_answers = accepted_answers.replace(/\s*,\s*/g, ",").split(",");
+		console.log(accepted_answers);
 		return accepted_answers.indexOf(userAnswer) > -1;
 	};
 
 	handleSubmit = e => {
-		let {close, value} = this.props;
+		let {close, value, money} = this.props;
 		e.preventDefault();
 		let userAnswer = this.state.answer;
 		if (this.checkAnswer(userAnswer)) {
@@ -52,6 +54,7 @@ class QuestionModal extends React.Component {
 			}, () => {
 				alert("Correct!", `Nice job you just won $${value}!`, "success");
 				clearInterval(window.countDown);
+				money(+value)
 				close();
 			})
 			
@@ -61,6 +64,7 @@ class QuestionModal extends React.Component {
 			}, () => {
 				alert("Wrong!", `Sorry, you just lost $${value}`, "error");
 				clearInterval(window.countDown);
+				money(-value)
 				close();
 			})
 		}

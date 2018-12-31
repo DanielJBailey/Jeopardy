@@ -8,9 +8,9 @@ import {
 	Category,
 	CategoriesContainer,
 	ChoicesContainer,
-	// ScoreBoard,
-	// MoneyContainer,
-	// NameContainer
+	ScoreBoard,
+	MoneyContainer,
+	NameContainer
 } from "./BoardStyles";
 import StartingScreen from "./StartingScreen";
 import start_game from "../../assets/game_start.mp3";
@@ -33,6 +33,12 @@ class Jeopardy extends React.Component {
 	componentDidMount() {
 		const { dispatch } = this.props;
 		dispatch(getCategories(this.getCards));
+	}
+
+	updateMoney = (result) => {
+		let {money} = this.state;
+		console.log(result);
+		
 	}
 
 	getCards = () => {
@@ -91,7 +97,7 @@ class Jeopardy extends React.Component {
 
 	render() {
 		let {
-			// money,
+			money,
 			showStart,
 			playerName,
 			cardsInPlay,
@@ -104,11 +110,12 @@ class Jeopardy extends React.Component {
 		let { categories } = this.props;
 		return (
 			<>
-				<StartingScreen
+				{showStart ? <StartingScreen
 					show={showStart}
 					update={this.updatePlayerName}
 					close={this.closeStartScreen}
-				/>
+				/> : null}
+				
 				<GameContainer>
 					{showModal ? 
 					<QuestionModal
@@ -117,6 +124,7 @@ class Jeopardy extends React.Component {
 						value={dollar_value}
 						accepted_answers={accepted_answers}
 						close={this.closeQuestion}
+						money={this.updateMoney}
 					/> : null}
 					
 					{playerName === undefined ? null : (
@@ -266,10 +274,10 @@ class Jeopardy extends React.Component {
 							</ul>
 						</ChoicesContainer>
 					</GameBoard>
-					{/* <ScoreBoard>
+					<ScoreBoard>
 						<NameContainer>{playerName}</NameContainer>
 						<MoneyContainer>${money}</MoneyContainer>
-					</ScoreBoard> */}
+					</ScoreBoard>
 				</GameContainer>
 			</>
 		);

@@ -53,7 +53,7 @@ class NewCardForm extends React.Component {
       if(!this.checkForCommasInList(this.state.accepted_answers)) {
         alert(
           'Error adding card!',
-          `Please use a comma seperated list in for accepted answers!`,
+          `Please use a comma seperated list in for accepted answers! (Ex: first, second, third)`,
           'error'
         )
       } else {

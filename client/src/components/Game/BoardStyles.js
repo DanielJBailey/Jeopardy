@@ -6,32 +6,30 @@ export const MoneyContainer = styled.div`
 	justify-content: center;
 	background: linear-gradient(to top, #4a69bd, #1e3799, #1e3799, #4a69bd);
 	align-items: center;
-	width: 50%;
+	flex: 1;
 	font-family: "Roboto", sans-serif;
 	font-weight: 900;
-	font-size: 45px;
+	font-size: 40px;
 	color: white;
 	border-top-right-radius: 10px;
 	border-bottom-right-radius: 10px;
 `;
 
 export const ScoreBoard = styled.div`
-	height: 100px;
-	width: auto;
+	padding: 20px 0;
+	width: 600px;
 	background-color: #3b3131;
 	box-shadow: inset 4px 4px 10px rgba(0, 0, 0, 0.3),
 		3px 5px 20px rgba(0, 0, 0, 0.3);
 	padding: 5px;
 	display: flex;
 	border-radius: 5px;
-	margin-top: 25px;
-	position: absolute;
-	bottom: 0;
-	right: 0;
+	margin-top: 50px;
 `;
 
 export const NameContainer = styled.div`
-	width: 50%;
+	width: auto;
+	padding: 0 50px;
 	height: 100%;
 	margin-right: 10px;
 	background-color: #1e3799;
@@ -44,7 +42,7 @@ export const NameContainer = styled.div`
 	align-items: center;
 	font-family: "Shadows Into Light", cursive;
 	color: white;
-	font-size: 45px;
+	font-size: 40px;
 `;
 
 export const ChoicesContainer = styled.div`
