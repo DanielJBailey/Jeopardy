@@ -26,7 +26,7 @@ class QuestionModal extends React.Component {
 		}, 1000);
 	};
 	
-	renderItems = (color) => {
+	renderTimer = (color) => {
 		return this.state.timer.map((item) => (
 			<ProgressSquare color={color} key={item}/>
 		));
@@ -47,13 +47,46 @@ class QuestionModal extends React.Component {
 		return (
 			<ModalContainer>
 				<TimerContainer>
-                    {this.renderItems(color)}
+                    {this.renderTimer(color)}
 				</TimerContainer>
 				<h1>{question}</h1>
+				<AnswerForm>
+					<input 
+						placeholder="Type your answer..."
+						autoFocus
+					/>
+				</AnswerForm>
 			</ModalContainer>
 		);
 	}
 }
+
+const AnswerForm = styled.form`
+	display: flex;
+	margin-top: 50px;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	color: white;
+	font-size: 25px;
+
+	input {
+		width: 600px;
+		padding: 20px;
+		background-color: transparent;
+		border: none;
+		outline: none;
+		font-size: 30px;
+		font-family: 'Shadows Into Light', cursive;
+		caret-color: white;
+		color: white;
+		&::placeholder {
+			padding-left: 10px;
+			color: white;
+			font-family: 'Shadows Into Light', cursive;
+		}
+	}
+`;
 
 const TimerContainer = styled.div`
 	position: absolute;
@@ -75,8 +108,6 @@ const ProgressSquare = styled.div`
     height: 100%;
     background-color: ${props => props.color}; 
 `;
-
-
 
 const ModalContainer = styled.div`
 	position: absolute;
