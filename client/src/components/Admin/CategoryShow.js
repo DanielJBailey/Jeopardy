@@ -23,7 +23,6 @@ class CategoryShow extends React.Component {
         `You have deleted the card successfully!`,
         'success'
     )
-    
   }
 
   render () {
@@ -46,6 +45,7 @@ class CategoryShow extends React.Component {
                   <th>Question</th>
                   <th>Answer</th>
                   <th>Value</th>
+                  <th>Accepted Answers</th>
                   <th>Remove</th>
                 </tr>
               </thead>
@@ -55,6 +55,7 @@ class CategoryShow extends React.Component {
                     <td>{card.question}</td>
                     <td>{card.answer}</td>
                     <td>${card.dollar_value}</td>
+                    <td>{card.accepted_answers}</td>
                     <td className='delete'>
                       <button onClick={() => this.handleDelete(card.id)}>Remove</button>
                     </td>

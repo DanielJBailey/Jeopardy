@@ -8,7 +8,8 @@ class NewCardForm extends React.Component {
   state = {
     question: '',
     answer: '',
-    dollar_value: 200
+    dollar_value: 200,
+    accepted_answers: ''
   }
 
   componentDidUpdate () {
@@ -19,6 +20,14 @@ class NewCardForm extends React.Component {
     this.setState({
       [name]: value
     })
+  }
+
+  checkForCommasInList = (string) => {
+    var patt = new RegExp("[-\w\s]+(,[-\w\s]+)*");
+    if(patt.test(string)) {
+      console.log('true');
+      return true
+    } else return false
   }
 
   checkDollarValues = dollar_value => {
@@ -41,22 +50,31 @@ class NewCardForm extends React.Component {
         'error'
       )
     } else {
-      dispatch(addCard(category_id, { ...this.state }))
-      alert(
-        'Card added!',
-        `You have added the $${this.state.dollar_value} card successfully!`,
-        'success'
-      ) 
-      this.setState({
-        question: '',
-        dollar_value: 200,
-        answer: ''
-      })
+      if(!this.checkForCommasInList(this.state.accepted_answers)) {
+        alert(
+          'Error adding card!',
+          `Please use a comma seperated list in for accepted answers!`,
+          'error'
+        )
+      } else {
+        dispatch(addCard(category_id, { ...this.state }))
+        alert(
+          'Card added!',
+          `You have added the $${this.state.dollar_value} card successfully!`,
+          'success'
+        ) 
+        this.setState({
+          question: '',
+          dollar_value: 200,
+          answer: '',
+          accepted_answers: ''
+        })
+      }
     }
   }
 
   render () {
-    let { question, answer, dollar_value } = this.state
+    let { question, answer, dollar_value, accepted_answers } = this.state
     return (
       <Form onSubmit={this.handleSubmit}>
         <input
@@ -89,6 +107,15 @@ class NewCardForm extends React.Component {
           <option value={800}>$800</option>
           <option value={1000}>$1000</option>
         </select>
+        <br />
+        <input 
+          name="accepted_answers"
+          value={accepted_answers}
+          onChange={this.handleChange}
+          required
+          placeholder="Accepted answers"
+          className='answers'
+        />
         <input type='submit' value='Submit' className='submit' />
       </Form>
     )
@@ -96,12 +123,28 @@ class NewCardForm extends React.Component {
 }
 
 const Form = styled.form`
+  width: 1000px;
   display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
 
   .input {
+    padding: 10px 15px;
+    width: 300px;
+    height: 40px;
+    margin-right: 10px;
+    background-color: rgba(0,0,0,0.05);
+    color: #2d3436;
+    border: none;
+    outline: none;
+    font-size: 14px;
+    border-radius: 5px;
+    font-weight: bold;
+    &::placeholder {
+      color: rgba(0, 0, 0, 0.3);
+      padding-left: 5px;
+    }
+  }
+
+  .answers {
     padding: 10px 15px;
     width: 300px;
     height: 40px;
