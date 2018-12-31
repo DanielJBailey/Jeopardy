@@ -74,6 +74,7 @@ const ScreenContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	background: linear-gradient(to bottom left, #4776e6, #8e54e9);
+	z-index: 999;
 
 	.alex {
 		position: absolute;

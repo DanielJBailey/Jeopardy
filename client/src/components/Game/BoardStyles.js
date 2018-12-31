@@ -106,6 +106,9 @@ export const GameContainer = styled.div`
 	justify-content: center;
 	align-items: center;
 	margin-bottom: 100px;
+	position: fixed;
+	top: 0;
+	left: 0;
 `;
 
 export const GameBoard = styled.div`

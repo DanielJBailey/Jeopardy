@@ -14,12 +14,6 @@ class CategoryShow extends React.Component {
     dispatch(getCards(id))
   }
 
-  // componentDidUpdate() {
-  //   let list = this.props.cards[4].accepted_answers.split('');
-  //   let last_character = list.pop()
-  //   if(last_character == ',') console.log(true)
-  // } 
-
   handleDelete = (card_id) => {
     let category_id = this.props.match.params.id
     let {dispatch} = this.props;
@@ -133,6 +127,10 @@ const AdminContainer = styled.div`
   align-items: center;
   padding-top: 100px;
   background-color: white;
+  overflow-y: scroll;
+  position: fixed;
+  top: 0;
+  left: 0;
 
   h1 {
     margin-bottom: 20px;

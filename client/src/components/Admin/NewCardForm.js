@@ -23,8 +23,8 @@ class NewCardForm extends React.Component {
   }
 
   checkForCommasInList = (string) => {
-    var patt = new RegExp("[-\w\s]+(,[-\w\s]+)*");
-    if(patt.test(string)) {
+    var pattern = new RegExp('[-\\w\\s]+(,[-\\w\\s]+)*');
+    if(pattern.test(string)) {
       console.log('true');
       return true
     } else return false

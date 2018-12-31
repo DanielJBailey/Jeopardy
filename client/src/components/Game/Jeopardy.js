@@ -20,12 +20,13 @@ class Jeopardy extends React.Component {
 	state = {
 		money: 0,
 		playerName: undefined,
-		showStart: false,
+		showStart: true,
 		gameStarted: false,
 		cardsInPlay: [],
 		question: "",
 		answer: "",
 		dollar_value: undefined,
+		accepted_answers: undefined,
 		showModal: false
 	};
 
@@ -70,7 +71,8 @@ class Jeopardy extends React.Component {
 			this.setState({
 				question: card.question,
 				answer: card.answer,
-				dollar_value: card.dollar_value
+				dollar_value: card.dollar_value,
+				accepted_answers: card.accepted_answers
 			});
 			cardsInPlay[cardIndex].dollar_value = 0;
 			this.setState({
@@ -80,6 +82,13 @@ class Jeopardy extends React.Component {
 		}
 	};
 
+	closeQuestion = () => {
+		let {showModal} = this.state;
+		this.setState({
+			showModal: !showModal
+		})
+	}
+
 	render() {
 		let {
 			// money,
@@ -88,7 +97,9 @@ class Jeopardy extends React.Component {
 			cardsInPlay,
 			showModal,
 			question,
-			answer
+			answer,
+			accepted_answers,
+			dollar_value
 		} = this.state;
 		let { categories } = this.props;
 		return (
@@ -103,6 +114,9 @@ class Jeopardy extends React.Component {
 					<QuestionModal
 						question={question}
 						answer={answer}
+						value={dollar_value}
+						accepted_answers={accepted_answers}
+						close={this.closeQuestion}
 					/> : null}
 					
 					{playerName === undefined ? null : (

@@ -1,14 +1,12 @@
 import React from "react";
 import styled from "styled-components";
+import alert from "sweetalert2";
 
 class QuestionModal extends React.Component {
 	state = {
-		timer: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
-    };
-    
-    componentDidUpdate() {
-        console.log(this.state.timer);
-    }
+		timer: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
+		answer: ""
+	};
 
 	componentDidMount() {
 		this.startTimer();
@@ -16,43 +14,79 @@ class QuestionModal extends React.Component {
 
 	startTimer = () => {
 		let { timer } = this.state;
-		let countDown = setInterval(() => {
+		window.countDown = setInterval(() => {
 			if (timer.length > 0) {
 				timer.pop();
 				this.setState({
 					timer: timer
 				});
-			} else clearInterval(countDown);
+			} else clearInterval(window.countDown);
 		}, 1000);
 	};
-	
-	renderTimer = (color) => {
-		return this.state.timer.map((item) => (
-			<ProgressSquare color={color} key={item}/>
+
+	renderTimer = color => {
+		return this.state.timer.map(item => (
+			<ProgressSquare color={color} key={item} />
 		));
-	}
+	};
+
+	handleChange = ({ target: { name, value } }) => {
+		this.setState({
+			[name]: value
+		});
+	};
+
+	checkAnswer = userAnswer => {
+		let { accepted_answers } = this.props;
+		accepted_answers = accepted_answers.replace(", ", ",").split(",");
+		return accepted_answers.indexOf(userAnswer) > -1;
+	};
+
+	handleSubmit = e => {
+		let {close, value} = this.props;
+		e.preventDefault();
+		let userAnswer = this.state.answer;
+		if (this.checkAnswer(userAnswer)) {
+			this.setState({
+				answer: ""
+			}, () => {
+				alert("Correct!", `Nice job you just won $${value}!`, "success");
+				clearInterval(window.countDown);
+				close();
+			})
+			
+		} else {
+			this.setState({
+				answer: ""
+			}, () => {
+				alert("Wrong!", `Sorry, you just lost $${value}`, "error");
+				clearInterval(window.countDown);
+				close();
+			})
+		}
+	};
 
 	render() {
 		let { question } = this.props;
-        let { timer } = this.state;
-        let color;
-        if(timer.length > 7) {
-            color = "green";
-        } else if (timer.length > 4) {
-            color = "yellow";
-        } else {        
-            color = "red";
-        }
-        
+		let { timer } = this.state;
+		let color;
+		if (timer.length > 7) {
+			color = "green";
+		} else if (timer.length > 4) {
+			color = "yellow";
+		} else {
+			color = "red";
+		}
+
 		return (
 			<ModalContainer>
-				<TimerContainer>
-                    {this.renderTimer(color)}
-				</TimerContainer>
+				<TimerContainer>{this.renderTimer(color)}</TimerContainer>
 				<h1>{question}</h1>
-				<AnswerForm>
-					<input 
+				<AnswerForm onSubmit={this.handleSubmit}>
+					<input
 						placeholder="Type your answer..."
+						name="answer"
+						onChange={this.handleChange}
 						autoFocus
 					/>
 				</AnswerForm>
@@ -63,12 +97,13 @@ class QuestionModal extends React.Component {
 
 const AnswerForm = styled.form`
 	display: flex;
-	margin-top: 50px;
+	margin-top: 25px;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
 	color: white;
 	font-size: 25px;
+	text-align: center;
 
 	input {
 		width: 600px;
@@ -76,14 +111,15 @@ const AnswerForm = styled.form`
 		background-color: transparent;
 		border: none;
 		outline: none;
+		text-align: center;
 		font-size: 30px;
-		font-family: 'Shadows Into Light', cursive;
+		font-family: "Shadows Into Light", cursive;
 		caret-color: white;
 		color: white;
 		&::placeholder {
 			padding-left: 10px;
 			color: white;
-			font-family: 'Shadows Into Light', cursive;
+			font-family: "Shadows Into Light", cursive;
 		}
 	}
 `;
@@ -94,19 +130,19 @@ const TimerContainer = styled.div`
 	margin: 50px auto;
 	width: 300px;
 	height: 15px;
-    background-color: black;
-    border: 2px solid silver;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
+	background-color: black;
+	border: 2px solid silver;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.4);
 `;
 
 const ProgressSquare = styled.div`
-    width: 20px;
-    height: 100%;
-    background-color: ${props => props.color}; 
+	width: 20px;
+	height: 100%;
+	background-color: ${props => props.color};
 `;
 
 const ModalContainer = styled.div`
