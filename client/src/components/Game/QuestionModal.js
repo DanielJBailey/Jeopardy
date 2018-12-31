@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 class QuestionModal extends React.Component {
 	state = {
-		timer: 10
+		timer: [1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
     };
     
     componentDidUpdate() {
@@ -16,32 +16,29 @@ class QuestionModal extends React.Component {
 
 	startTimer = () => {
 		let { timer } = this.state;
-		this.setState({
-			timer: timer--
-		});
 		let countDown = setInterval(() => {
-			if (timer >= 0) {
+			if (timer.length > 0) {
+				timer.pop();
 				this.setState({
-					timer: timer--
+					timer: timer
 				});
 			} else clearInterval(countDown);
 		}, 1000);
-    };
-
-    renderSquares = (color) => {
-        let {timer} = this.state;
-        for(var i = 0; i < timer; i++) {
-            return <ProgressSquare color={color}/>
-        }
-    }
+	};
+	
+	renderItems = (color) => {
+		return this.state.timer.map((item) => (
+			<ProgressSquare color={color} key={item}/>
+		));
+	}
 
 	render() {
-		let { question, answer } = this.props;
+		let { question } = this.props;
         let { timer } = this.state;
         let color;
-        if(timer > 7) {
+        if(timer.length > 7) {
             color = "green";
-        } else if (timer > 4) {
+        } else if (timer.length > 4) {
             color = "yellow";
         } else {        
             color = "red";
@@ -50,7 +47,7 @@ class QuestionModal extends React.Component {
 		return (
 			<ModalContainer>
 				<TimerContainer>
-                    {this.renderSquares(color)}
+                    {this.renderItems(color)}
 				</TimerContainer>
 				<h1>{question}</h1>
 			</ModalContainer>
@@ -68,19 +65,15 @@ const TimerContainer = styled.div`
     border: 2px solid silver;
     display: flex;
     flex-direction: row;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
     box-shadow: 2px 2px 10px rgba(0,0,0,0.4);
 `;
 
 const ProgressSquare = styled.div`
-    width: 30px;
+    width: 20px;
     height: 100%;
     background-color: ${props => props.color}; 
-    border-right: 2px solid silver;
-    &:last-child {
-        border-right: none;
-    }
 `;
 
 
