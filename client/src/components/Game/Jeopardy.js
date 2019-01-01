@@ -15,6 +15,7 @@ import {
 import StartingScreen from "./StartingScreen";
 import start_game from "../../assets/game_start.mp3";
 import QuestionModal from "../Game/QuestionModal";
+import GameOver from '../Game/GameOver';
 
 class Jeopardy extends React.Component {
 	state = {
@@ -23,12 +24,34 @@ class Jeopardy extends React.Component {
 		showStart: true,
 		gameStarted: false,
 		cardsInPlay: [],
+		cardsRemaining: 30,
 		question: "",
 		answer: "",
 		dollar_value: undefined,
 		accepted_answers: undefined,
-		showModal: false
+		showModal: false,
+		gameOver: false
 	};
+
+	removeCard = () => {
+		let {cardsRemaining} = this.state;
+		this.setState({
+			cardsRemaining: cardsRemaining - 1
+		})
+	}
+
+	checkCardsRemaining = () => {
+		let {cardsRemaining} = this.state;
+		if(cardsRemaining === 0) {
+			this.setState({
+				gameOver: true
+			})
+		}
+	}
+
+	componentDidUpdate() {
+		console.log(this.state.cardsRemaining);
+	}
 
 	componentDidMount() {
 		const { dispatch } = this.props;
@@ -36,6 +59,7 @@ class Jeopardy extends React.Component {
 	}
 
 	increaseBalance = amount => {
+		this.checkCardsRemaining();
 		let { money } = this.state;
 		this.setState({
 			money: money + amount
@@ -43,6 +67,7 @@ class Jeopardy extends React.Component {
 	};
 
 	decreaseBalance = amount => {
+		this.checkCardsRemaining();
 		let { money } = this.state;
 		this.setState({
 			money: money - amount
@@ -113,7 +138,8 @@ class Jeopardy extends React.Component {
 			question,
 			answer,
 			accepted_answers,
-			dollar_value
+			dollar_value,
+			gameOver
 		} = this.state;
 		money = money.toLocaleString();
 		let { categories } = this.props;
@@ -128,6 +154,7 @@ class Jeopardy extends React.Component {
 				) : null}
 
 				<GameContainer>
+					{gameOver ? <GameOver /> : null}
 					{showModal ? (
 						<QuestionModal
 							question={question}
@@ -137,6 +164,7 @@ class Jeopardy extends React.Component {
 							close={this.closeQuestion}
 							increase={this.increaseBalance}
 							decrease={this.decreaseBalance}
+							remove={this.removeCard}
 						/>
 					) : null}
 
