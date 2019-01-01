@@ -27,6 +27,9 @@ The classic jeopardy game built using React on a Ruby on Rails backend.
 
 ## Screenshots
 
+### Question Screen
+<img src="https://i.gyazo.com/d183322bff7dcb2b7e0def540c6ebb0c.jpg" width="500px"/>  
+
 ### Admin Dashboard
 <img src="https://gyazo.com/dce99aeeea6a08321742a1364c57a4fa.png" width="500px"/>
 
@@ -34,10 +37,10 @@ The classic jeopardy game built using React on a Ruby on Rails backend.
 <img src="https://gyazo.com/e373ac7693f5ef126a15eaa769c88054.png" width="500px"/>
 
 ### Game Board
-<img src="https://gyazo.com/df33575d721199e6f4fd3a1ccaba6f80.png" width="500px"/>   
-
-### Starting Screen
-<img src="https://gyazo.com/7f58f75443e17d680f39ea59e9f971c4.png" width="500px"/>   
+<img src="https://gyazo.com/df33575d721199e6f4fd3a1ccaba6f80.png" width="500px"/>    
 
 ### Question Screen
-<img src="https://gyazo.com/3167f5b3d74d0315b387f268cba844c6.png" width="500px"/>   
+<img src="https://gyazo.com/3167f5b3d74d0315b387f268cba844c6.png" width="500px"/>  
+
+
+
