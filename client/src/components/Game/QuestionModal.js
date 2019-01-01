@@ -35,9 +35,8 @@ class QuestionModal extends React.Component {
 
 	checkTimer = () => {
 		let { timer } = this.state;
-		let { close, value, decrease } = this.props;
+		let { close, value, decrease, remove } = this.props;
 		if (timer.length === 0) {
-			console.log("time out!");
 			clearInterval(window.countDown);
 			alert(
 				"Out of time!",
@@ -46,6 +45,7 @@ class QuestionModal extends React.Component {
 			);
 			decrease(value);
 			close();
+			remove();
 		} else {
 			timer.pop();
 			this.setState({

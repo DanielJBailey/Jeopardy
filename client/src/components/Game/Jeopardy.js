@@ -15,7 +15,7 @@ import {
 import StartingScreen from "./StartingScreen";
 import start_game from "../../assets/game_start.mp3";
 import QuestionModal from "../Game/QuestionModal";
-import GameOver from '../Game/GameOver';
+import GameOver from "../Game/GameOver";
 
 class Jeopardy extends React.Component {
 	state = {
@@ -33,25 +33,39 @@ class Jeopardy extends React.Component {
 		gameOver: false
 	};
 
+	resetGame = () => {
+		this.setState({
+			money: 0,
+			showStart: false,
+			gameStarted: false,
+			cardsInPlay: [],
+			cardsRemaining: 30,
+			question: "",
+			answer: "",
+			dollar_value: undefined,
+			accepted_answers: undefined,
+			showModal: false,
+			gameOver: false
+		});
+		const { dispatch } = this.props;
+		dispatch(getCategories(this.getCards));
+	};
+
 	removeCard = () => {
-		let {cardsRemaining} = this.state;
+		let { cardsRemaining } = this.state;
 		this.setState({
 			cardsRemaining: cardsRemaining - 1
-		})
-	}
+		});
+	};
 
 	checkCardsRemaining = () => {
-		let {cardsRemaining} = this.state;
-		if(cardsRemaining === 0) {
+		let { cardsRemaining } = this.state;
+		if (cardsRemaining === 0) {
 			this.setState({
 				gameOver: true
-			})
+			});
 		}
-	}
-
-	componentDidUpdate() {
-		console.log(this.state.cardsRemaining);
-	}
+	};
 
 	componentDidMount() {
 		const { dispatch } = this.props;
@@ -154,7 +168,9 @@ class Jeopardy extends React.Component {
 				) : null}
 
 				<GameContainer>
-					{gameOver ? <GameOver /> : null}
+					{gameOver ? (
+						<GameOver playerName={playerName} balance={money} reset={this.resetGame}/>
+					) : null}
 					{showModal ? (
 						<QuestionModal
 							question={question}
@@ -317,7 +333,9 @@ class Jeopardy extends React.Component {
 					</GameBoard>
 					<ScoreBoard>
 						<NameContainer>{playerName}</NameContainer>
-						<MoneyContainer color={money < 0 ? 'red' : '#060CE9'}>${money}</MoneyContainer>
+						<MoneyContainer color={this.state.money < 0 ? "red" : "#060CE9"}>
+							${money}
+						</MoneyContainer>
 					</ScoreBoard>
 				</GameContainer>
 			</>
