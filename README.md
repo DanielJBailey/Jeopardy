@@ -27,7 +27,7 @@ The classic jeopardy game built using React on a Ruby on Rails backend.
 
 ## Screenshots
 
-### Question Screen
+### Game Intro
 <img src="https://i.gyazo.com/d183322bff7dcb2b7e0def540c6ebb0c.jpg" width="500px"/>  
 
 ### Admin Dashboard
