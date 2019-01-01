@@ -26,5 +26,5 @@ The classic jeopardy game built using React on a Ruby on Rails backend.
 - CSS/SCSS
 
 ## Screenshots
-<img src="https://gyazo.com/66e4856fdbd575f4be1ec971966e8c86" width="500px"/>
-<img src="https://gyazo.com/df33575d721199e6f4fd3a1ccaba6f80" width="500px"/>=
+<img src="https://gyazo.com/66e4856fdbd575f4be1ec971966e8c86.png" width="500px"/>
+<img src="https://gyazo.com/df33575d721199e6f4fd3a1ccaba6f80.png" width="500px"/>
