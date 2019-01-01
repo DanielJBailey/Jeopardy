@@ -128,9 +128,6 @@ const AdminContainer = styled.div`
   padding-top: 100px;
   background-color: white;
   overflow-y: scroll;
-  position: fixed;
-  top: 0;
-  left: 0;
 
   h1 {
     margin-bottom: 20px;
