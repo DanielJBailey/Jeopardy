@@ -1,3 +1,26 @@
 {
-  "dependencies": {}
+  "dependencies": {},
+  "name": "jeopardy",
+  "description": "The classic jeopardy game built using React on a Ruby on Rails backend.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DanielJBailey/Jeopardy.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DanielJBailey/Jeopardy/issues"
+  },
+  "homepage": "https://github.com/DanielJBailey/Jeopardy#readme"
 }
