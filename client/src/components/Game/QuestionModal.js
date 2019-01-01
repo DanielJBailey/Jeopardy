@@ -4,7 +4,28 @@ import alert from "sweetalert2";
 
 class QuestionModal extends React.Component {
 	state = {
-		timer: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+		timer: [
+			1,
+			2,
+			3,
+			4,
+			5,
+			6,
+			7,
+			8,
+			9,
+			10,
+			11,
+			12,
+			13,
+			14,
+			15,
+			16,
+			17,
+			18,
+			19,
+			20
+		],
 		answer: ""
 	};
 
@@ -12,15 +33,30 @@ class QuestionModal extends React.Component {
 		this.startTimer();
 	}
 
-	startTimer = () => {
+	checkTimer = () => {
 		let { timer } = this.state;
+		let { close, value, decrease } = this.props;
+		if (timer.length === 0) {
+			console.log("time out!");
+			clearInterval(window.countDown);
+			alert(
+				"Out of time!",
+				`Pay attention, you ran out of time! You just lost $${value} dollars!`,
+				"warning"
+			);
+			decrease(value);
+			close();
+		} else {
+			timer.pop();
+			this.setState({
+				timer: timer
+			});
+		}
+	};
+
+	startTimer = () => {
 		window.countDown = setInterval(() => {
-			if (timer.length > 0) {
-				timer.pop();
-				this.setState({
-					timer: timer
-				});
-			} else clearInterval(window.countDown);
+			this.checkTimer();
 		}, 1000);
 	};
 
@@ -44,28 +80,37 @@ class QuestionModal extends React.Component {
 	};
 
 	handleSubmit = e => {
-		let {close, value, increase, decrease} = this.props;
+		let { close, value, increase, decrease } = this.props;
 		e.preventDefault();
 		let userAnswer = this.state.answer;
 		if (this.checkAnswer(userAnswer)) {
-			this.setState({
-				answer: ""
-			}, () => {
-				alert("Correct!", `Nice job you just won $${value}!`, "success");
-				clearInterval(window.countDown);
-				increase(value)
-				close();
-			})
-			
+			this.setState(
+				{
+					answer: ""
+				},
+				() => {
+					alert(
+						"Correct!",
+						`Nice job you just won $${value}!`,
+						"success"
+					);
+					clearInterval(window.countDown);
+					increase(value);
+					close();
+				}
+			);
 		} else {
-			this.setState({
-				answer: ""
-			}, () => {
-				alert("Wrong!", `Sorry, you just lost $${value}`, "error");
-				clearInterval(window.countDown);
-				decrease(value)
-				close();
-			})
+			this.setState(
+				{
+					answer: ""
+				},
+				() => {
+					alert("Wrong!", `Sorry, you just lost $${value}`, "error");
+					clearInterval(window.countDown);
+					decrease(value);
+					close();
+				}
+			);
 		}
 	};
 
@@ -143,7 +188,7 @@ const TimerContainer = styled.div`
 `;
 
 const ProgressSquare = styled.div`
-	width: 30px;
+	width: 15px;
 	height: 100%;
 	background-color: ${props => props.color};
 `;

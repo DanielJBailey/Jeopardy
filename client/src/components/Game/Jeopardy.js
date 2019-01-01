@@ -115,6 +115,7 @@ class Jeopardy extends React.Component {
 			accepted_answers,
 			dollar_value
 		} = this.state;
+		money = money.toLocaleString();
 		let { categories } = this.props;
 		return (
 			<>
