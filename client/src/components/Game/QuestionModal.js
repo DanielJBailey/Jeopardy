@@ -75,7 +75,7 @@ class QuestionModal extends React.Component {
 	checkAnswer = userAnswer => {
 		let { accepted_answers } = this.props;
 		accepted_answers = accepted_answers.replace(/\s*,\s*/g, ",").split(",");
-		return accepted_answers.indexOf(userAnswer) > -1;
+		return accepted_answers.indexOf(userAnswer.trim().toLowerCase()) > -1;
 	};
 
 	handleSubmit = e => {
